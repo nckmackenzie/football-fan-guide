@@ -10,6 +10,8 @@ export default function BasicTextField({
   onChange,
   error,
   helperText,
+  value,
+  onBlur,
 }) {
   return (
     <TextField
@@ -20,6 +22,8 @@ export default function BasicTextField({
       size={size || 'small'}
       fullWidth={fullWidth}
       onChange={onChange}
+      value={value}
+      onBlur={onBlur}
       error={error}
       helperText={helperText}
       sx={{ marginBottom: '0.875rem' }}
