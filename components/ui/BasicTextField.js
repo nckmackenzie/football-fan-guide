@@ -16,7 +16,7 @@ export default function BasicTextField({
       id={id}
       type={type || 'text'}
       label={label}
-      variant={variant}
+      variant={variant || 'outlined'}
       size={size || 'small'}
       fullWidth={fullWidth}
       onChange={onChange}
