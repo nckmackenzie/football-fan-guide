@@ -22,6 +22,7 @@ export default function BasicTextField({
       onChange={onChange}
       error={error}
       helperText={helperText}
+      sx={{ marginBottom: '0.875rem' }}
     />
   );
 }
