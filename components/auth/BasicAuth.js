@@ -50,7 +50,10 @@ export default function BasicAuth({ type }) {
     } catch (error) {
       if (error.code === 'auth/wrong-password') {
         setError('Invalid email or password');
+      } else if (error.code === 'auth/email-already-in-use') {
+        setError('Email already registered!');
       }
+      // console.log(error.code);
       setIsLoading(false);
     }
   };
