@@ -18,13 +18,14 @@ import { getInitialsFromName } from '../../utils/formatters';
 export default function UserAvatar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { user } = React.useContext(AuthContext);
+
   let displayName;
   let photoUrl;
   if (user) {
     displayName = user.displayName;
     photoUrl = user.photoURL;
   }
-  // const { displayName, photoUrl } = user;
+
   const router = useRouter();
   const settings = ['Profile', 'Logout'];
   const handleOpenUserMenu = event => {
@@ -33,6 +34,20 @@ export default function UserAvatar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  // let content;
+  // if (user) {
+  //   if (photoUrl) {
+  //     content = <Avatar alt={displayName} src={photoUrl} />;
+  //   } else {
+  //     content = (
+  //       <Avatar sx={{ bgcolor: deepPurple[500] }}>
+  //         {getInitialsFromName(displayName)}
+  //       </Avatar>
+  //     );
+  //   }
+  //   return content;
+  // }
   const handleMenuItemClick = async e => {
     if (e.target.innerText === 'Logout') {
       const auth = getAuth();
@@ -57,9 +72,10 @@ export default function UserAvatar() {
             <Avatar alt="Default user avatar" src="/img/users/user.svg" />
           )}
 
-          {user && photoUrl ? (
-            <Avatar alt={displayName} src={photoUrl} />
-          ) : (
+          {/* {user && content} */}
+
+          {user && photoUrl && <Avatar alt={displayName} src={photoUrl} />}
+          {user && !photoUrl && (
             <Avatar sx={{ bgcolor: deepPurple[500] }}>
               {getInitialsFromName(displayName)}
             </Avatar>

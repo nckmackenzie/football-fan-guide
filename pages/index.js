@@ -1,7 +1,18 @@
+import { useEffect, useContext } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Layout from '../components/layout/Layout';
+import AuthContext from '../context/Auth/auth-context';
 
 export default function Home() {
+  const { user } = useContext(AuthContext);
+  const router = useRouter();
+  useEffect(() => {
+    if (!user) {
+      router.replace('/auth?type=login');
+    }
+  }, [user]);
+
   return (
     <div>
       <Head>
