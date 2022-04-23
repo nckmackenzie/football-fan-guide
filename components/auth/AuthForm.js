@@ -7,7 +7,7 @@ import ButtonLikeDiv from '../ui/ButtonLikeDiv';
 import { useAuthActions } from '../../context/Auth/AuthActionProvider';
 import { INPUT_CHANGE, INPUT_BLUR } from '../../utils/actionTypes';
 
-export default function AuthForm({ type, authHandler }) {
+export default function AuthForm({ type, authHandler, oauthHandler }) {
   const { state, dispatch } = useAuthActions();
   const onChangeHander = e => {
     dispatch({ type: INPUT_CHANGE, e });
@@ -54,6 +54,10 @@ export default function AuthForm({ type, authHandler }) {
       };
     }
     authHandler(data);
+  };
+
+  const googleOAuthHandler = () => {
+    oauthHandler();
   };
 
   return (
@@ -121,6 +125,7 @@ export default function AuthForm({ type, authHandler }) {
         OR
       </Typography>
       <BasicButton
+        onClick={googleOAuthHandler}
         variant="outlined"
         startIcon={<GoogleIcon color="primary" />}
         sx={{ width: '100%', marginTop: '0.5rem', marginBottom: '0.5rem' }}
