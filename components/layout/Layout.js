@@ -37,7 +37,7 @@ export default function Layout(props) {
         }}
       >
         <Toolbar />
-        {props.children}
+        <main>{props.children}</main>
       </Box>
     </Box>
   );
