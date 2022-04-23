@@ -2,6 +2,7 @@ import { useEffect, useContext } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import AuthContext from '../context/Auth/auth-context';
+import Layout from '../components/layout/Layout';
 
 export default function Home() {
   const { user } = useContext(AuthContext);
@@ -22,6 +23,7 @@ export default function Home() {
           content="Get all stats for your favorite football clubs in one place!"
         />
       </Head>
+      <Layout></Layout>
       {/* <main>
         <h1 className="text-3xl font-bold underline">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
