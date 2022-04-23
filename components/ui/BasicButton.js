@@ -7,6 +7,7 @@ export default function BasicButton({
   startIcon,
   type,
   disabled,
+  onClick,
 }) {
   return (
     <Button
@@ -14,6 +15,7 @@ export default function BasicButton({
       startIcon={startIcon}
       type={type || 'button'}
       disabled={disabled || false}
+      onClick={onClick}
       sx={{ ...sx }}
     >
       {children}
