@@ -7,10 +7,10 @@ export default function index() {
   return (
     <>
       <Head>
-        <title>Players | Ultimate Fan Guide</title>
+        <title>Fixtures | Ultimate Fan Guide</title>
         <meta
           name="description"
-          content="Player information and data all in one place!"
+          content="All upcoming fixtures for all competitions!"
         />
       </Head>
       <Box>
