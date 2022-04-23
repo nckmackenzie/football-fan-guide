@@ -11,6 +11,7 @@ import '@fontsource/roboto/700.css';
 import '../styles/globals.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import AuthContext from '../context/Auth/auth-context';
+import Layout from '../components/layout/Layout';
 app;
 
 function MyApp({ Component, pageProps }) {
@@ -53,7 +54,9 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <AuthProvider>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </AuthProvider>
     </StyledEngineProvider>
   );
