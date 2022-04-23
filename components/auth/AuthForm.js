@@ -6,8 +6,14 @@ import GoogleIcon from '@mui/icons-material/Google';
 import ButtonLikeDiv from '../ui/ButtonLikeDiv';
 import { useAuthActions } from '../../context/Auth/AuthActionProvider';
 import { INPUT_CHANGE, INPUT_BLUR } from '../../utils/actionTypes';
+import BasicCircularProgress from '../ui/BasicCircularProgress';
 
-export default function AuthForm({ type, authHandler, oauthHandler }) {
+export default function AuthForm({
+  type,
+  authHandler,
+  oauthHandler,
+  isLoading,
+}) {
   const { state, dispatch } = useAuthActions();
   const onChangeHander = e => {
     dispatch({ type: INPUT_CHANGE, e });
@@ -109,13 +115,18 @@ export default function AuthForm({ type, authHandler, oauthHandler }) {
           helperText={state.confirmPassword.err}
         />
       )}
-      <BasicButton
-        type="submit"
-        sx={{ width: '100%', marginBottom: '0.5rem' }}
-        disabled={!formIsValid}
-      >
-        {`${type === 'login' ? 'Login' : 'Register'}`}
-      </BasicButton>
+      {!isLoading ? (
+        <BasicButton
+          type="submit"
+          sx={{ width: '100%', marginBottom: '0.5rem' }}
+          disabled={!formIsValid}
+        >
+          {`${type === 'login' ? 'Login' : 'Register'}`}
+        </BasicButton>
+      ) : (
+        <BasicCircularProgress />
+      )}
+
       <Typography
         variant="h6"
         component="p"

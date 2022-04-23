@@ -6,6 +6,7 @@ import {
   updateProfile,
   signInWithPopup,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -14,8 +15,11 @@ import AuthHeader from './AuthHeader';
 import AuthForm from './AuthForm';
 import AuthActionProvider from '../../context/Auth/AuthActionProvider';
 import AuthContext from '../../context/Auth/auth-context';
+import BasicAlert from '../ui/BasicAlert';
 
 export default function BasicAuth({ type }) {
+  const [error, setError] = React.useState();
+  const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
   const provider = new GoogleAuthProvider();
   const { setUser } = React.useContext(AuthContext);
@@ -23,6 +27,7 @@ export default function BasicAuth({ type }) {
 
   const onSubmitHandler = async data => {
     try {
+      setIsLoading(true);
       if (data.type === 'register') {
         const userCredentials = await createUserWithEmailAndPassword(
           auth,
@@ -31,10 +36,22 @@ export default function BasicAuth({ type }) {
         );
         setUser(userCredentials);
         updateProfile(auth.currentUser, { displayName: data.name });
+      } else if (data.type === 'login') {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          data.email,
+          data.password
+        );
+        const user = userCredential.user;
+        setUser(user);
       }
+      setIsLoading(false);
       router.push('/');
     } catch (error) {
-      console.log(error.code, error.message);
+      if (error.code === 'auth/wrong-password') {
+        setError('Invalid email or password');
+      }
+      setIsLoading(false);
     }
   };
 
@@ -42,6 +59,7 @@ export default function BasicAuth({ type }) {
     try {
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
+      // eslint-disable-next-line no-unused-vars
       const token = credential.accessToken;
       const user = result.user;
       setUser(user);
@@ -65,10 +83,18 @@ export default function BasicAuth({ type }) {
       <CardContent>
         <AuthActionProvider>
           <AuthHeader type={type} />
+          {error && (
+            <BasicAlert
+              type="error"
+              message={error}
+              sx={{ marginBottom: '1rem' }}
+            />
+          )}
           <AuthForm
             type={type}
             authHandler={onSubmitHandler}
             oauthHandler={oauthHandler}
+            isLoading={isLoading}
           />
         </AuthActionProvider>
       </CardContent>
