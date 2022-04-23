@@ -11,6 +11,7 @@ export default function Home() {
     if (!user) {
       router.replace('/auth?type=login');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
