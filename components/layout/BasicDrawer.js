@@ -2,9 +2,6 @@ import React from 'react';
 import { Box, Drawer, Toolbar, Typography } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import { drawerNav } from '../../data/data';
 import BasicListItem from './BasicListItem';
 
