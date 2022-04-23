@@ -11,10 +11,20 @@ import {
 } from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 import { useRouter } from 'next/router';
+import AuthContext from '../../context/Auth/auth-context';
+import { getInitialsFromName } from '../../utils/formatters';
 // import BasicSnackBar from '../ui/BasicSnackBar';
 
 export default function UserAvatar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { user } = React.useContext(AuthContext);
+  let displayName;
+  let photoUrl;
+  if (user) {
+    displayName = user.displayName;
+    photoUrl = user.photoURL;
+  }
+  // const { displayName, photoUrl } = user;
   const router = useRouter();
   const settings = ['Profile', 'Logout'];
   const handleOpenUserMenu = event => {
@@ -43,7 +53,17 @@ export default function UserAvatar() {
     <Box className="ml-auto">
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar sx={{ bgcolor: deepPurple[500] }}>OP</Avatar>
+          {!user && (
+            <Avatar alt="Default user avatar" src="/img/users/user.svg" />
+          )}
+
+          {user && photoUrl ? (
+            <Avatar alt={displayName} src={photoUrl} />
+          ) : (
+            <Avatar sx={{ bgcolor: deepPurple[500] }}>
+              {getInitialsFromName(displayName)}
+            </Avatar>
+          )}
         </IconButton>
       </Tooltip>
       <Menu
