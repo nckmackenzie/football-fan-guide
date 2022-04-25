@@ -52,6 +52,8 @@ export default function BasicAuth({ type }) {
         setError('Invalid email or password');
       } else if (error.code === 'auth/email-already-in-use') {
         setError('Email already registered!');
+      } else if (error.code === 'auth/user-not-found') {
+        setError('Email not registered!');
       }
       // console.log(error.code);
       setIsLoading(false);
