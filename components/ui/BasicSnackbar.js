@@ -1,23 +1,32 @@
-import { Alert, Snackbar } from '@mui/material';
+import { Snackbar } from '@mui/material';
 import React from 'react';
 
-export default function BasicSnackBar({ open, setOpen }) {
+export default function BasicSnackBar({ open, handleClose, message }) {
+  const [state] = React.useState({
+    vertical: 'bottom',
+    horizontal: 'center',
+  });
+
+  const { vertical, horizontal } = state;
   //   const handleClick = () => {
   //     setOpen(true);
   //   };
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  // const handleClose = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };
 
-    setOpen(false);
-  };
   return (
-    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-        This is a success message!
-      </Alert>
-    </Snackbar>
+    <Snackbar
+      open={open}
+      autoHideDuration={6000}
+      onClose={handleClose}
+      key={vertical + horizontal}
+      anchorOrigin={{ vertical, horizontal }}
+      message={message}
+    />
   );
 }
